@@ -1,0 +1,151 @@
+﻿@model Entidades.Alumnos
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Alumnos</h4>
+    <hr />
+    <span id="id" class="hidden">@Html.DisplayFor(model => model.id)</span>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.primerApellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.primerApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.segundoApellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.segundoApellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.correo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.correo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telefono)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telefono)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fechaNacimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fechaNacimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.curp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.curp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sueldo)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.sueldo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idEstadoOrigen)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estados.nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.idEstatus)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EstatusAlumnos.Nombre)
+        </dd>
+
+    </dl>
+</div>
+<div class="container">
+    <div class="col-md-2">
+        <input type="button" name="CalcularIMSS" value="CalcularIMSS" onclick="CalcularIMSS()" class="btn btn-info btn-sm"/>
+    </div>
+    <div class="col-md-2">
+        <input type="button" name="CalcularIMSS" value="CalcularISR" onclick="CalcularISR()" class="btn btn-info btn-sm" />
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>
+<div class="modal fade" id="ventanaModal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Encabezado -->
+            <div class="modal-header">
+                <h4 id="tituloModal" class="modal-title">Detalle Alumno</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Cuerpo -->
+            <div class="modal-body" id="cuerpoModal">
+                Cuerpo Modal..
+            </div>
+
+            <!-- Pie de Ventana -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+    function CalcularIMSS() {
+        var id = $("#id").text();
+        $("#tituloModal").text("Aportaciones IMSSS");
+        var urlAction = "@Url.Action("_AportacionesIMSS", "Alumno")" + "/" + id;
+        llamadaAjaxGEThtml(urlAction, muestraModal);
+    }
+    function CalcularISR() {
+        var id = $("#id").text();
+        $("#tituloModal").text("Calculo ISR");
+        var urlAction = "@Url.Action("_TablaISR", "Alumno")" + "/" + id;
+        llamadaAjaxGEThtml(urlAction, muestraModal);
+    }
+    function muestraModal(response) {
+        $("#cuerpoModal").html(response);
+        $("#ventanaModal").modal();
+    }
+</script>
+@section Scripts{
+    @Scripts.Render("~/Mibundles/js")
+    }
